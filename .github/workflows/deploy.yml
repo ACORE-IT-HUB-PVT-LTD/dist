@@ -1,0 +1,34 @@
+name: Deploy Updated Dist to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Deploy via SSH
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          set -e
+
+          SRC=/home/ubuntu/updated_dist
+          DEST=/home/ubuntu/ayush/Mediscript-dists/Medi
+
+          rsync -av --delete $SRC/admin/dist/   $DEST/admin/dist/
+          rsync -av --delete $SRC/doctor/dist/  $DEST/doctor/dist/
+          rsync -av --delete $SRC/main/dist/    $DEST/main/dist/
+          rsync -av --delete $SRC/student/dist/ $DEST/student/dist/
+
+          chown -R www-data:www-data $DEST
+          chmod -R 775 $DEST
