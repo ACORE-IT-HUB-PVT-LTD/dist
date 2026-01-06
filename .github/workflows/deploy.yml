@@ -25,10 +25,10 @@ jobs:
           SRC=/home/ubuntu/updated_dist
           DEST=/home/ubuntu/ayush/Mediscript-dists/Medi
 
-          rsync -av --delete $SRC/admin/dist/   $DEST/admin/dist/
-          rsync -av --delete $SRC/doctor/dist/  $DEST/doctor/dist/
-          rsync -av --delete $SRC/main/dist/    $DEST/main/dist/
-          rsync -av --delete $SRC/student/dist/ $DEST/student/dist/
+          sudo rsync -av --delete $SRC/admin/dist/   $DEST/admin/dist/
+          sudo rsync -av --delete $SRC/doctor/dist/  $DEST/doctor/dist/
+          sudo rsync -av --delete $SRC/main/dist/    $DEST/main/dist/
+          sudo rsync -av --delete $SRC/student/dist/ $DEST/student/dist/
 
-          chown -R www-data:www-data $DEST
-          chmod -R 775 $DEST
+          sudo chown -R www-data:www-data $DEST
+          sudo chmod -R 775 $DEST
