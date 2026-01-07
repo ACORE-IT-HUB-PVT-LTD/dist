@@ -1,34 +1,35 @@
-name: Deploy Updated Dist to Server
 
-on:
-  push:
-    branches:
-      - main
+#name: Deploy Updated Dist to Server
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+#on:
+#  push:
+#    branches:
+#     - main
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+#jobs:
+#  deploy:
+#    runs-on: ubuntu-latest
 
-    - name: Deploy via SSH
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_KEY }}
-        script: |
-          set -e
+#    steps:
+#    - name: Checkout repository
+#      uses: actions/checkout@v4
 
-          SRC=/home/ubuntu/updated_dist
-          DEST=/home/ubuntu/ayush/Mediscript-dists/Medi
+#    - name: Deploy via SSH
+#      uses: appleboy/ssh-action@v1.0.3
+#      with:
+#        host: ${{ secrets.SSH_HOST }}
+#        username: ${{ secrets.SSH_USER }}
+#        key: ${{ secrets.SSH_KEY }}
+#        script: |
+#          set -e
 
-          sudo rsync -av --delete $SRC/admin/dist/   $DEST/admin/dist/
-          sudo rsync -av --delete $SRC/doctor/dist/  $DEST/doctor/dist/
-          sudo rsync -av --delete $SRC/main/dist/    $DEST/main/dist/
-          sudo rsync -av --delete $SRC/student/dist/ $DEST/student/dist/
+#          SRC=/home/ubuntu/updated_dist
+#          DEST=/home/ubuntu/ayush/Mediscript-dists/Medi
 
-          sudo chown -R www-data:www-data $DEST
-          sudo chmod -R 775 $DEST
+#          sudo rsync -av --delete $SRC/admin/dist/   $DEST/admin/dist/
+#          sudo rsync -av --delete $SRC/doctor/dist/  $DEST/doctor/dist/
+#          sudo rsync -av --delete $SRC/main/dist/    $DEST/main/dist/
+#          sudo rsync -av --delete $SRC/student/dist/ $DEST/student/dist/
+
+#          sudo chown -R www-data:www-data $DEST
+#          sudo chmod -R 775 $DEST
